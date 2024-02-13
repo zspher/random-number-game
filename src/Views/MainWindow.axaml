@@ -1,20 +1,52 @@
 <Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:random_number_game.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="random_number_game.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="random_number_game">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:random_number_game.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    x:Class="random_number_game.Views.MainWindow"
+    x:DataType="vm:MainWindowViewModel"
+    Icon="/Assets/avalonia-logo.ico"
+    Title="random_number_game">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
+             to set the actual DataContext for runtime, set the DataContext property in code (look at
+        App.axaml.cs) -->
+        <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <StackPanel HorizontalAlignment="Center">
+        <TextBlock
+            Text="{Binding Atitle}"
+            FontSize="24"
+            Background="Violet"
+            Padding="40,10"
+            Margin="0,16" />
+        <Grid ColumnDefinitions="*,Auto">
+            <TextBox Grid.Column="0" Text="{Binding UserInput}"
+                Watermark="Enter a number" />
+            <Button Grid.Column="1" VerticalAlignment="Top"
+                Command="{Binding TryGuessCommand}"
+                Margin="10,0,0,0" Content="Go" />
+        </Grid>
+        <Grid ColumnDefinitions="Auto,Auto" Margin="5,2">
+            <TextBlock FontSize="10" Grid.Column="0" Text="Attempts Left:" />
+            <TextBlock FontSize="10" Grid.Column="1" Margin="10,0,0,0"
+                Text="{Binding AttemptsLeft}" />
+        </Grid>
+        <ItemsControl ItemsSource="{Binding AttemptsList}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Num}" />
+                        <TextBlock Text=" is " />
+                        <TextBlock Text="{Binding Result}" />
+                        <TextBlock Text=" the random number " />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
 
 </Window>
