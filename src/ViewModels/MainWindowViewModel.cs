@@ -1,8 +1,71 @@
-﻿namespace random_number_game.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
-public class MainWindowViewModel : ViewModelBase
+namespace random_number_game.ViewModels;
+
+public partial class MainWindowViewModel : ObservableValidator
 {
-#pragma warning disable CA1822 // Mark members as static
-    public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+    [ObservableProperty]
+    private string _atitle = "Random Number Game";
+
+    [ObservableProperty]
+    private int _attemptsLeft = 10;
+
+    private static readonly Random rnd = new Random();
+
+    [ObservableProperty]
+    private int _randomNumber = rnd.Next(0, 100);
+
+    [RelayCommand]
+    private void changeNumber() => RandomNumber = rnd.Next(0, 100);
+
+    [ObservableProperty]
+    [Range(1, 100)]
+    private object? _userInput;
+
+    [ObservableProperty]
+    private ObservableCollection<Guess> _attemptsList = new ObservableCollection<Guess>(
+        new List<Guess> { }
+    );
+
+    [RelayCommand]
+    private void TryGuess()
+    {
+        ValidateAllProperties();
+        if (HasErrors)
+            return;
+
+        int input = int.Parse((string)UserInput!);
+
+        AttemptsLeft -= 1;
+        AttemptsList.Insert(0, new Guess(input, RandomNumber));
+    }
+}
+
+public class Guess
+{
+    public int ActualNum { get; set; }
+    public int Num { get; set; }
+
+    private string result = "";
+    public string? Result
+    {
+        get => result;
+    }
+
+    public Guess(int guess, int actualNum)
+    {
+        Num = guess;
+        ActualNum = actualNum;
+        if (Num > ActualNum)
+            result = "higher than";
+        if (Num < ActualNum)
+            result = "lower than";
+        if (Num == ActualNum)
+            result = "is equal";
+    }
 }
