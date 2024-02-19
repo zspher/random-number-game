@@ -19,10 +19,9 @@
     <StackPanel HorizontalAlignment="Center">
         <TextBlock
             Text="{Binding Atitle}"
-            FontSize="24"
-            Background="Violet"
-            Padding="40,10"
-            Margin="0,16" />
+            FontSize="30"
+            Foreground="Gray"
+            Margin="10,20" />
         <Grid ColumnDefinitions="*,Auto">
             <TextBox Grid.Column="0" Text="{Binding UserInput}"
                 Watermark="Enter a number" />
