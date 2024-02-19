@@ -20,9 +20,6 @@ public partial class MainWindowViewModel : ObservableValidator
     [ObservableProperty]
     private int _randomNumber = rnd.Next(0, 100);
 
-    [RelayCommand]
-    private void changeNumber() => RandomNumber = rnd.Next(0, 100);
-
     [ObservableProperty]
     [Range(1, 100)]
     private object? _userInput;
