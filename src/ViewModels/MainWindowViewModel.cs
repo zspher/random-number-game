@@ -50,6 +50,7 @@ public class Guess
 {
     public int ActualNum { get; set; }
     public int Num { get; set; }
+    public bool Success { get; set; }
 
     private string result = "";
     public string? Result
@@ -61,11 +62,20 @@ public class Guess
     {
         Num = guess;
         ActualNum = actualNum;
-        if (Num > ActualNum)
-            result = "higher than";
-        if (Num < ActualNum)
-            result = "lower than";
-        if (Num == ActualNum)
-            result = "is equal";
+
+        switch (guess)
+        {
+            case int n when n > actualNum:
+                Success = false;
+                result = "higher than";
+                break;
+            case int n when n < actualNum:
+                Success = false;
+                result = "lower than";
+                break;
+            case int n when n == actualNum:
+                Success = true;
+                break;
+        }
     }
 }
