@@ -36,7 +36,10 @@ public partial class MainWindowViewModel : ObservableValidator
         if (HasErrors)
             return;
 
-        int input = int.Parse((string)UserInput!);
+        if (UserInput is null)
+            return;
+
+        int input = int.Parse((string)UserInput);
 
         AttemptsLeft -= 1;
         AttemptsList.Insert(0, new Guess(input, RandomNumber));
