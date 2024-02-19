@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -31,6 +32,22 @@ public partial class MainWindowViewModel : ObservableValidator
 
     [ObservableProperty]
     private bool _gameFinished = false;
+
+    [RelayCommand]
+    private void QuitGame(Window window)
+    {
+        window.Close("Bye");
+    }
+
+    [RelayCommand]
+    private void ResetGame()
+    {
+        GameFinished = false;
+        RandomNumber = rnd.Next(0, 100);
+        AttemptsList = new ObservableCollection<Guess>(new List<Guess> { });
+        AttemptsLeft = 10;
+    }
+
     [RelayCommand]
     private void TryGuess()
     {
