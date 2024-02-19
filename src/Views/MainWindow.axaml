@@ -16,50 +16,63 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <StackPanel HorizontalAlignment="Center">
-        <TextBlock
-            Text="{Binding Atitle}"
-            FontSize="30"
-            Foreground="Gray"
-            Margin="10,20" />
-        <Grid ColumnDefinitions="*,Auto">
-            <TextBox Grid.Column="0" Text="{Binding UserInput}"
-                Watermark="Enter a number" />
-            <Button Grid.Column="1" VerticalAlignment="Top"
-                Command="{Binding TryGuessCommand}"
-                Margin="10,0,0,0" Content="Go" />
-        </Grid>
-        <Grid ColumnDefinitions="Auto,Auto" Margin="5,2">
-            <TextBlock FontSize="10" Grid.Column="0" Text="Attempts Left:" />
-            <TextBlock FontSize="10" Grid.Column="1" Margin="10,0,0,0"
-                Text="{Binding AttemptsLeft}" />
-        </Grid>
-        <ItemsControl ItemsSource="{Binding AttemptsList}">
-            <ItemsControl.Styles>
-                <Style Selector="Border.success">
-                    <Setter Property="BorderBrush" Value="MediumSeaGreen" />
-                </Style>
-                <Style Selector="Border.fail">
-                    <Setter Property="BorderBrush" Value="Crimson" />
-                </Style>
-            </ItemsControl.Styles>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border Background="Gainsboro" Margin="5,10,5,0"
-                        CornerRadius="5" BorderThickness="0,0,0,3"
-                        Classes.success="{Binding Success}"
-                        Classes.fail="{Binding !Success}">
-                        <StackPanel Orientation="Horizontal" Margin="0,2">
-                            <TextBlock Text="{Binding Num}" Padding="5,0,0,0"
-                                FontWeight="Bold" />
-                            <TextBlock Text=" is " />
-                            <TextBlock Text="{Binding Result}" />
-                            <TextBlock Text=" the random number" />
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+    <Grid>
+        <StackPanel HorizontalAlignment="Center">
+            <TextBlock
+                Text="{Binding Atitle}"
+                FontSize="30"
+                Foreground="Gray"
+                Margin="10,20" />
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox Grid.Column="0" Text="{Binding UserInput}"
+                    Watermark="Enter a number" />
+                <Button Grid.Column="1" VerticalAlignment="Top"
+                    Command="{Binding TryGuessCommand}"
+                    Margin="10,0,0,0" Content="Go" />
+            </Grid>
+            <Grid ColumnDefinitions="Auto,Auto" Margin="5,2">
+                <TextBlock FontSize="10" Grid.Column="0" Text="Attempts Left:" />
+                <TextBlock FontSize="10" Grid.Column="1" Margin="10,0,0,0"
+                    Text="{Binding AttemptsLeft}" />
+            </Grid>
+            <ItemsControl ItemsSource="{Binding AttemptsList}">
+                <ItemsControl.Styles>
+                    <Style Selector="Border.success">
+                        <Setter Property="BorderBrush" Value="MediumSeaGreen" />
+                    </Style>
+                    <Style Selector="Border.fail">
+                        <Setter Property="BorderBrush" Value="Crimson" />
+                    </Style>
+                </ItemsControl.Styles>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="Gainsboro" Margin="5,10,5,0"
+                            CornerRadius="5" BorderThickness="0,0,0,3"
+                            Classes.success="{Binding Success}"
+                            Classes.fail="{Binding !Success}">
+                            <StackPanel Orientation="Horizontal" Margin="0,2">
+                                <TextBlock Text="{Binding Num}" Padding="5,0,0,0"
+                                    FontWeight="Bold" />
+                                <TextBlock Text=" is " />
+                                <TextBlock Text="{Binding Result}" />
+                                <TextBlock Text=" the random number" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <Border IsVisible="{Binding GameFinished}" Background="#40000000">
+            <StackPanel Background="White" MaxHeight="100" MaxWidth="300">
+                <TextBlock Text="hello" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Quit"
+                        Command="{Binding QuitGameCommand}" />
+                    <Button Content="Play Again"
+                        Command="{Binding ResetGameCommand}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
 
 </Window>
