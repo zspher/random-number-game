@@ -29,6 +29,8 @@ public partial class MainWindowViewModel : ObservableValidator
         new List<Guess> { }
     );
 
+    [ObservableProperty]
+    private bool _gameFinished = false;
     [RelayCommand]
     private void TryGuess()
     {
@@ -40,6 +42,15 @@ public partial class MainWindowViewModel : ObservableValidator
             return;
 
         int input = int.Parse((string)UserInput);
+
+        if (AttemptsLeft <= 0)
+            GameFinished = true;
+
+        if (input == RandomNumber)
+            GameFinished = true;
+
+        if (GameFinished)
+            return;
 
         AttemptsLeft -= 1;
         AttemptsList.Insert(0, new Guess(input, RandomNumber));
