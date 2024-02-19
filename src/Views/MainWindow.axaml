@@ -36,14 +36,28 @@
                 Text="{Binding AttemptsLeft}" />
         </Grid>
         <ItemsControl ItemsSource="{Binding AttemptsList}">
+            <ItemsControl.Styles>
+                <Style Selector="Border.success">
+                    <Setter Property="BorderBrush" Value="MediumSeaGreen" />
+                </Style>
+                <Style Selector="Border.fail">
+                    <Setter Property="BorderBrush" Value="Crimson" />
+                </Style>
+            </ItemsControl.Styles>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Num}" />
-                        <TextBlock Text=" is " />
-                        <TextBlock Text="{Binding Result}" />
-                        <TextBlock Text=" the random number " />
-                    </StackPanel>
+                    <Border Background="Gainsboro" Margin="5,10,5,0"
+                        CornerRadius="5" BorderThickness="0,0,0,3"
+                        Classes.success="{Binding Success}"
+                        Classes.fail="{Binding !Success}">
+                        <StackPanel Orientation="Horizontal" Margin="0,2">
+                            <TextBlock Text="{Binding Num}" Padding="5,0,0,0"
+                                FontWeight="Bold" />
+                            <TextBlock Text=" is " />
+                            <TextBlock Text="{Binding Result}" />
+                            <TextBlock Text=" the random number" />
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
