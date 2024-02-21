@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using random_number_game.ViewModels;
-using random_number_game.Views;
+using RandomNumberGame.ViewModels;
+using RandomNumberGame.Views;
 
-namespace random_number_game;
+namespace RandomNumberGame;
 
 public partial class App : Application
 {

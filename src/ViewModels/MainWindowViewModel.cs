@@ -6,7 +6,7 @@ using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace random_number_game.ViewModels;
+namespace RandomNumberGame.ViewModels;
 
 public partial class MainWindowViewModel : ObservableValidator
 {

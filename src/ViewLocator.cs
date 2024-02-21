@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using random_number_game.ViewModels;
+using RandomNumberGame.ViewModels;
 
-namespace random_number_game;
+namespace RandomNumberGame;
 
 public class ViewLocator : IDataTemplate
 {

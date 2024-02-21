@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace random_number_game.ViewModels;
+namespace RandomNumberGame.ViewModels;
 
 public class ViewModelBase : ReactiveObject
 {

@@ -2,7 +2,7 @@
 using Avalonia.ReactiveUI;
 using System;
 
-namespace random_number_game;
+namespace RandomNumberGame;
 
 sealed class Program
 {

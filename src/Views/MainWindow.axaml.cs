@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace random_number_game.Views;
+namespace RandomNumberGame.Views;
 
 public partial class MainWindow : Window
 {
