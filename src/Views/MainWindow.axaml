@@ -64,8 +64,10 @@
         </StackPanel>
         <Border IsVisible="{Binding GameFinished}" Background="#40000000">
             <StackPanel Background="White" MaxHeight="100" MaxWidth="300">
-                <TextBlock Text="hello" />
-                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Would you like to try again?"
+                    HorizontalAlignment="Center" Margin="0,15" />
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center" Spacing="10">
                     <Button Content="Quit"
                         Command="{Binding QuitGameCommand}" />
                     <Button Content="Play Again"
