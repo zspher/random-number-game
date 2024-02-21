@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -16,7 +17,7 @@ public partial class MainWindowViewModel : ObservableValidator
     [ObservableProperty]
     private int _attemptsLeft = 10;
 
-    private static readonly Random rnd = new Random();
+    private static readonly Random rnd = new();
 
     [ObservableProperty]
     private int _randomNumber = rnd.Next(0, 100);
@@ -26,15 +27,13 @@ public partial class MainWindowViewModel : ObservableValidator
     private object? _userInput;
 
     [ObservableProperty]
-    private ObservableCollection<Guess> _attemptsList = new ObservableCollection<Guess>(
-        new List<Guess> { }
-    );
+    private ObservableCollection<Guess> _attemptsList = new([]);
 
     [ObservableProperty]
     private bool _gameFinished = false;
 
     [RelayCommand]
-    private void QuitGame(Window window)
+    private static void QuitGame(Window window)
     {
         window.Close("Bye");
     }
@@ -44,11 +43,14 @@ public partial class MainWindowViewModel : ObservableValidator
     {
         GameFinished = false;
         RandomNumber = rnd.Next(0, 100);
-        AttemptsList = new ObservableCollection<Guess>(new List<Guess> { });
+        AttemptsList = new ObservableCollection<Guess>([]);
         AttemptsLeft = 10;
     }
 
     [RelayCommand]
+    [RequiresUnreferencedCode(
+        "Calls CommunityToolkit.Mvvm.ComponentModel.ObservableValidator.ValidateAllProperties()"
+    )]
     private void TryGuess()
     {
         ValidateAllProperties();
@@ -58,7 +60,7 @@ public partial class MainWindowViewModel : ObservableValidator
         if (UserInput is null)
             return;
 
-        int input = int.Parse((string)UserInput);
+        int input = int.Parse($"{UserInput}", CultureInfo.CurrentCulture);
 
         if (AttemptsLeft <= 0)
             GameFinished = true;
@@ -80,11 +82,7 @@ public class Guess
     public int Num { get; set; }
     public bool Success { get; set; }
 
-    private string result = "";
-    public string? Result
-    {
-        get => result;
-    }
+    public string? Result { get; set; }
 
     public Guess(int guess, int actualNum)
     {
@@ -95,14 +93,16 @@ public class Guess
         {
             case int n when n > actualNum:
                 Success = false;
-                result = "higher than";
+                Result = "higher than";
                 break;
             case int n when n < actualNum:
                 Success = false;
-                result = "lower than";
+                Result = "lower than";
                 break;
             case int n when n == actualNum:
                 Success = true;
+                break;
+            default:
                 break;
         }
     }
