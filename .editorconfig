@@ -1,0 +1,4 @@
+[*.{cs,vb}]
+csharp_style_namespace_declarations="file_scope"
+csharp_prefer_braces=false
+dotnet_style_namespace_match_folder=false
