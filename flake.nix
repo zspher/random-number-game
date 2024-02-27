@@ -14,13 +14,19 @@
     in {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
-          bashInteractive
           (with dotnetCorePackages;
             combinePackages [
               sdk_6_0
               sdk_8_0
             ])
+          # formatter
           csharpier
+
+          # lsp
+          omnisharp-roslyn
+
+          # debugger
+          netcoredbg
         ];
 
         nativeBuildInputs = with pkgs; [gnumake];
